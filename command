@@ -1,45 +1,36 @@
 const discord = require('discord.js');
 
 module.exports = {
-    name: "help",
+    name: "botinfo",
     category: "info",
     description: "Shows a help menu.",
     aliases: [" "],
     run: async(client, message, args) => {
+      let hours = Math.floor(client.uptime / 3600000 ) % 24;
+    let minutes = Math.floor(client.uptime / 60000) % 60;
+    let seconds = Math.floor(client.uptime / 1000) % 60;
         let menu = new discord.MessageEmbed()
-        .setTitle(`**Commands List**`)
-        .setDescription(`📚 **Need help?** Here are all of my useful commands!
-**Need more help?** Come join our **guild**.
+        .setAuthor("Protocol Information", "https://cdn.discordapp.com/attachments/894226959641497623/899320546372755486/image0.jpg")
+        .setDescription(`<:dev:899333277331116052> **DEVELOPER**
+\`landen.#9020\`
 
-<:admin:899604695146967091> **ADMIN**
-Coming Soon.
+<:linux:899376472375066705> **PLATFORM**
+\`linux\`
 
-<:money:900089277243854888> **ECONOMY**
-Coming Soon.
+<:users:899701577324068904> **SERVERS**
+\`${client.guilds.cache.size} servers\`
 
-<:tada:899607013481398322> **EVENTS**
-Coming Soon
+<:ping:899375344908369931> **PING**
+\`${client.ws.ping}ms\`
 
-<a:diamond:900086516230025237> **FUN**
-Coming Soon.
+<:uptime:899336037652922369> **UPTIME**
+\`${hours}h ${minutes}m ${seconds}s\`
 
-<a:gears:900781777566728242> **Utility**
-\`appstore\`
-
-<:info:900084168808071229> **INFO**
-\`botinfo,\` \`help,\` \`membercount\`
-
-<:staff:899768734938464306> **MODERATION**
-\`ban\`
-
-<:music:899649788713254932> **MUSIC**
-Coming Soon.
-
-<:owner:899604695444783144> **OWNER**
-\`nuke,\` \`shutdown\``)
-        .setFooter(message.author.tag, message.author.displayAvatarURL())
+<:javascript:899664801884684288> **LAVALINK NODE**
+\`node\``)
         .setTimestamp()
         .setColor("#E2E2E2")
+        .setFooter("Thanks for using Protocol!", "https://cdn.discordapp.com/attachments/894226959641497623/899320546372755486/image0.jpg")
 
         message.channel.send(menu)
     }
