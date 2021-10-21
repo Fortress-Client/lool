@@ -1,33 +1,46 @@
-const { readdirSync } = require("fs");
-const ascii = require("ascii-table");
+const discord = require('discord.js');
 
+module.exports = {
+    name: "help",
+    category: "info",
+    description: "Shows a help menu.",
+    aliases: [" "],
+    run: async(client, message, args) => {
+        let menu = new discord.MessageEmbed()
+        .setTitle(`**Commands List**`)
+        .setDescription(`📚 **Need help?** Here are all of my useful commands!
+**Need more help?** Come join our **guild**.
 
-let table = new ascii("Infomation");
-table.setHeading("Commands", " Status");
+<:admin:899604695146967091> **ADMIN**
+Coming Soon.
 
-module.exports = (client) => {
-    
-    readdirSync("./commands/").forEach(dir => {
-        
-        const commands = readdirSync(`./commands/${dir}/`).filter(file => file.endsWith(".js"));
-    
-       
-        for (let file of commands) {
-            let pull = require(`../commands/${dir}/${file}`);
-    
-            if (pull.name) {
-                client.commands.set(pull.name, pull);
-                table.addRow(file, '✅');
-            } else {
-                table.addRow(file, `❌`);
-                continue;
-            }
-    
-       
-            if (pull.aliases && Array.isArray(pull.aliases)) pull.aliases.forEach(alias => client.aliases.set(alias, pull.name));
-        }
-    });
-    
+<:money:900089277243854888> **ECONOMY**
+Coming Soon.
 
-    console.log(table.toString());
+<:tada:899607013481398322> **EVENTS**
+Coming Soon
+
+<a:diamond:900086516230025237> **FUN**
+Coming Soon.
+
+<a:gears:900781777566728242> **Utility**
+\`appstore\`
+
+<:info:900084168808071229> **INFO**
+\`botinfo,\` \`help,\` \`membercount\`
+
+<:staff:899768734938464306> **MODERATION**
+\`ban\`
+
+<:music:899649788713254932> **MUSIC**
+Coming Soon.
+
+<:owner:899604695444783144> **OWNER**
+\`nuke,\` \`shutdown\``)
+        .setFooter(message.author.tag, message.author.displayAvatarURL())
+        .setTimestamp()
+        .setColor("#E2E2E2")
+
+        message.channel.send(menu)
+    }
 }
